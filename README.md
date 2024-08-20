@@ -13,6 +13,12 @@ I am tired of checking the school timetable from the iSAMS or the iStudent App, 
 - 1. Import the script.
 - 2. A button "Export to ICS" will appear on the [timetable page](https://pupils.ulinkedu.com/api/profile/timetable/).
 
+# Credits
+
+- [ics.js](https://github.com/nwcell/ics.js)
+
+    A browser friendly .ics/.vcs file generator written entirely in JavaScript!
+
 # Note
 
 I may not update this script any more, since it is already working with the latest (2024.08.20) page.
