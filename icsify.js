@@ -11,10 +11,10 @@
 
 (async function() {
 	"use strict";
-	
-	/* 	ics.js 
-		A browser friendly .ics/.vcs file generator written entirely in JavaScript! 
-	   
+
+	/* 	ics.js
+		A browser friendly .ics/.vcs file generator written entirely in JavaScript!
+
 		MIT License
 
 		Copyright (c) 2018 Travis Krause
@@ -370,9 +370,7 @@
 			for (let j = 0; j < 5; j++) {
 				const cell = timeTable[i][j];
 				if (!cell.lesson) continue;
-				let startDate1 = new Date(
-					`${formatDate(startDate)}T${cell.time.start}`
-				);
+				let startDate1 = new Date(`${formatDate(startDate)}T${cell.time.start}`);
 				let endDate1 = new Date(`${formatDate(startDate)}T${cell.time.end}`);
 
 				startDate1.setDate(startDate1.getDate() + j);
@@ -410,10 +408,7 @@
 						min += lessionDurnation;
 						hour += Math.floor(min / 60);
 						min = min % 60;
-						return `${String(hour).padStart(2, "0")}:${String(min).padStart(
-              2,
-              "0"
-            )}:00`;
+						return `${String(hour).padStart(2, "0")}:${String(min).padStart(2, "0")}:00`;
 					})(),
 				};
 				return details;
@@ -423,28 +418,39 @@
 
 	function askDateStartEnd() {
 		return new Promise((resolve) => {
-			const date = new Date(
-				prompt(
-					"Please enter a start date for the time table (YYYY-MM-DD)",
-					new Date().toISOString().split("T")[0]
-				)
+			const date = prompt(
+				"Please enter a start date for the time table (YYYY-MM-DD)",
+				new Date().toISOString().split("T")[0]
+			)
+
+            if(!date) {
+				resolve([]);
+				return;
+			}
+
+			const endDate = prompt(
+				"Please enter an end date for the time table (YYYY-MM-DD)",
+				(() => {
+					let d = new Date();
+					d.setDate(d.getDate() + 7);
+					return d.toISOString().split("T")[0];
+				})()
 			);
-			const endDate = new Date(
-				prompt(
-					"Please enter an end date for the time table (YYYY-MM-DD)",
-					(() => {
-						let d = new Date();
-						d.setDate(d.getDate() + 7);
-						return d.toISOString().split("T")[0];
-					})()
-				)
-			);
-			resolve([date, endDate]);
+
+            if(!endDate) {
+				resolve([]);
+				return;
+			}
+			
+			resolve([new Date(date), new Date(endDate)]);
 		});
 	}
 
 	async function icsify() {
-		let [start, end] = await askDateStartEnd();
+        let boundaries = await askDateStartEnd();
+        if(boundaries.length !== 2) return;
+        console.log(boundaries);
+		let [start, end] = boundaries;
 
 		const timeTable = getTimeTable();
 		generateICS(timeTable, start, end).download();
