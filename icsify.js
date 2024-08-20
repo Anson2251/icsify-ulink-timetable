@@ -336,10 +336,7 @@
 			script.src = url;
 			script.type = "text/javascript";
 			script.async = true;
-			script.onload = () => {
-				console.log("[ICSify Script] Successfully loaded dependency" + url);
-				resolve();
-			};
+			script.onload = () => resolve();
 			document.head.appendChild(script);
 		});
 	}
@@ -449,20 +446,24 @@
 	async function icsify() {
         let boundaries = await askDateStartEnd();
         if(boundaries.length !== 2) return;
-        console.log(boundaries);
 		let [start, end] = boundaries;
 
 		const timeTable = getTimeTable();
 		generateICS(timeTable, start, end).download();
 	}
 
-	window.icsify = icsify;
+	function init(){
+		const container = document.querySelector(".SP_Page_Content > table:nth-child(2) > tbody:nth-child(1) > tr:nth-child(1)");
+		const frame = document.createElement("td");
+		const button = document.createElement("button");
+	
+		button.addEventListener("click", () => icsify());
+		button.innerText = "Export to ICS";
+		button.style.fontSize = "10px";
 
-	await addScriptDep(
-		"https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"
-	);
+		container.appendChild(frame);
+		frame.appendChild(button);
+	}
 
-	document.querySelector(
-		".SP_Page_Content > table:nth-child(2) > tbody:nth-child(1) > tr:nth-child(1)"
-	).innerHTML += `<td><button onclick="icsify()">Export to ICS</button></td>`;
+	addScriptDep("https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js").then(() => init());
 })();
