@@ -1,10 +1,10 @@
 # ICSify-Ulink-Timetable
 
-A Tampermonkey script to add a ics file download button on Ulink-iSAMS timetable page.
+A Tampermonkey script to add an ics file download button to the Ulink-iSAMS timetable page.
 
 ## Why I made this
 
-I am tired of checking the school timetable from the iSAMS or the iStudent App, so I created this script to brings all of the lessons into my computer calendar.
+I am tired of checking the school timetable from iSAMS or the iStudent app, so I created this script to bring all the lessons into my computer calendar.
 
 ## How to use
 
@@ -21,7 +21,7 @@ I am tired of checking the school timetable from the iSAMS or the iStudent App, 
 
 ## Note
 
-I may not update this script any more, since it is already working with the latest (2024.08.20) page.
+I may not update this script as it already works with the latest (2024.08.20) page and Ulink rarely updates its student portal page.
 
 ---
 
