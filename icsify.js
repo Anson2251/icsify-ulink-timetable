@@ -390,7 +390,7 @@
 	}
 
 	function getTimeTable() {
-		const lessionDurnation = 45;
+		const lessionDurnation = 40;
 		const table = document.querySelector(".TTB_Table");
 
 		return [...table.tBodies[0].childNodes].slice(2).map((row) => {
